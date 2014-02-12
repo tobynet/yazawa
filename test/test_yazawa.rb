@@ -1,5 +1,8 @@
 #!/usr/bin/env ruby
 # -*- coding: utf-8 -*-
+require 'coveralls'
+Coveralls.wear!
+
 $VERBOSE = true
 require 'minitest/autorun'
 begin require 'minitest/pride' rescue LoadError end # Ignore error for old ruby
