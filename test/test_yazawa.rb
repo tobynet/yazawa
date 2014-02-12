@@ -7,7 +7,7 @@ begin require 'minitest/pride' rescue LoadError end # Ignore error for old ruby
 require_relative '../lib/yazawa'
 
 describe 'YAZAWA' do
-  TEST_TEXTS = [
+  TEST_FIXTURES = [
     # One Katakana word
     { 
       original: '仕事、課金しなくてもどんどんクエストくるしすごい',
@@ -42,7 +42,7 @@ describe 'YAZAWA' do
     },
   ]
 
-  TEST_TEXTS.each do |text|
+  TEST_FIXTURES.each do |text|
     it "can converts text to like Japanese yankee''s one(#{text[:original].slice(0..9)}...)" do
       YAZAWA.convert(text[:original]).must_equal text[:converted]
     end
