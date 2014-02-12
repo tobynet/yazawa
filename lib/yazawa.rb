@@ -15,27 +15,16 @@ end
 
 module YAZAWA
   class << self
-    # e.g. "ジャバ" => "『JABA』"
     # e.g. "空飛ぶ 寿司" => "空飛ぶ 『SUSHI』"
     def convert(text)
-      # With KATAKANA
-      # e.g. "ジャバ" => "『JABA』"
-      if text.contains_katakana?
-        separate_words(text).map{|x| 
-          if x.contains_katakana? then convert_word(x) else x end
-        }.join
-      else
-        # Without KATAKANA
-        # e.g. "空飛ぶ 寿司" => "空飛ぶ 『SUSHI』"
-        
-        # Find a word index which is 'noun'(名詞) and longest length
-        index_for_replace = find_suitable_index_for_replace(tagger.parse(text))
+      # e.g. "空飛ぶ 寿司" => "空飛ぶ 『SUSHI』"
+      # Find a word index which is 'noun'(名詞) and longest length
+      index_for_replace = find_suitable_index_for_replace(tagger.parse(text))
 
-        # Convert specific word only
-        words = separate_words(text)
-        words[index_for_replace] = convert_word(words[index_for_replace])
-        words.join
-      end
+      # Convert specific word only
+      words = separate_words(text)
+      words[index_for_replace] = convert_word(words[index_for_replace])
+      words.join
     end
     
     def tagger
@@ -68,9 +57,14 @@ module YAZAWA
       max_score = 0
       
       parsed_words.each_with_index do |result, index|
+        # Calculate priority for determining a suitable word
         score =
           # Japanese++
           (result.surface.contains_japanese? ? 100 : 0) +
+          # Katakana++
+          (result.surface.contains_katakana? ? 10 : 0) +
+          # Kanji++
+          (result.surface.contains_kanji? ? 10 : 0) +
           # adjective++
           (result.feature.split(',')[0] == "形容詞" ? 20 : 0) + 
           # noun++
