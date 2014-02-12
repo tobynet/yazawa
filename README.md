@@ -1,8 +1,18 @@
-# Yazawa
+# YAZAWA
 
-TODO: Write a gem description
+**『YAZAWA』** is one of `text-converter`, like [Yazawa](http://en.wikipedia.org/wiki/Eikichi_Yazawa).
+
+```
+$ yazawa '俺達の熱意で世界が変わる'
+俺達の『NETSUI』で世界が変わる
+```
 
 ## Installation
+
+Requirements:
+
+* MeCab (`sudo apt-get install mecab libmecab-dev mecab-ipadic-utf8` on Debian or Ubuntu linux)
+* Ruby 1.9.x or lator
 
 Add this line to your application's Gemfile:
 
@@ -16,13 +26,44 @@ Or install it yourself as:
 
     $ gem install yazawa
 
-## Usage
+## Usage as a command
 
-TODO: Write usage instructions here
+Usage: `yazawa TEXT [-r|--random]`
+
+## Examples as a command
+
+```bash
+$ yazawa '俺達の熱意で世界が変わる'
+俺達の『NETSUI』で世界が変わる
+
+$ yazawa -r '俺達の熱意で世界が変わる'
+俺達の熱意で『SEKAI』が変わる
+
+$ yazawa -r '俺達の熱意で世界が変わる'
+俺達の熱意で世界が『KAWARU』
+
+$ echo '唸る回転寿司' | yazawa
+唸る『KAITEN』寿司
+
+$ yazawa '便利を勘違いしていないか？'
+便利を『KANCHIGAI』していないか？
+
+$ yazawa '意識の高いインターンが社内チャットで「世界を変えたいんです！！！」とか主張してたら社員が「ドラム缶で核融合するもの作ってどっかの国で爆発させましょうよ」とか言いだして意識格差すごい'
+意識の高いインターンが社内チャットで「世界を変えたいんです！！！」とか主張してたら社員が「『DORAMUKAN』で核融合するもの作ってどっかの国で爆発させましょうよ」とか言いだして意識格差すごい
+```
+
+## Examples as a library for ruby
+
+```ruby
+require 'yazawa'
+
+p Yazawa.convert('俺達の熱意で世界が変わる') # => '俺達の『NETSUI』で世界が変わる'
+p Yazawa.convert('俺達の熱意で世界が変わる', at_random: true) # => '俺達の熱意で『SEKAI』が変わる'
+```
 
 ## Contributing
 
-1. Fork it ( http://github.com/<my-github-username>/yazawa/fork )
+1. Fork it ( http://github.com/toooooooby/yazawa/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)

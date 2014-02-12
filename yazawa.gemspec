@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = YAZAWA::VERSION
   spec.authors       = ["toooooooby"]
   spec.email         = ["toby.net.info.mail+git@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.summary       = %q{『YAZAWA』 is one of text-converter, like Yazawa}
+  spec.description   = %q{$ yazawa '俺達の熱意で世界が変わる'\n俺達の『NETSUI』で世界が変わる}
+  spec.homepage      = "https://github.com/toooooooby/yazawa"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)

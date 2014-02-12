@@ -4,7 +4,7 @@ require 'optparse'
 require_relative '../lib/yazawa'
 
 config = {}
-opts = OptionParser.new do |opts|
+opt = OptionParser.new do |opts|
   program_name = File.basename($PROGRAM_NAME)
 
   opts.banner = 'YAZAWA: One of text-converter like YAZAWA'
@@ -33,7 +33,7 @@ Options:
   EOD
 
   opts.on('-r', '--random', 'Random mode. Default: false') do
-    config[:random] = true
+    config[:at_random] = true
   end
   opts.on_tail('-h', '--help', 'Show this message') do
     puts opts
@@ -44,11 +44,11 @@ end
 
 # When no args on interactive shell
 if $stdin.tty? && ARGV.empty?
-  puts opts
+  puts opt
   exit 0
 end
 
 # Fetch source text
 source = ARGV.shift || ARGF.read
 
-puts YAZAWA.convert(source, config[:random])
+puts YAZAWA.convert(source, config)

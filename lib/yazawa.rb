@@ -16,10 +16,10 @@ end
 module YAZAWA
   class << self
     # e.g. "空飛ぶ 寿司" => "空飛ぶ 『SUSHI』"
-    def convert(text, random_mode = false)
+    def convert(text, options = {})
       # e.g. "空飛ぶ 寿司" => "空飛ぶ 『SUSHI』"
       # Find a word index which is 'noun'(名詞) and longest length
-      index_for_replace = find_suitable_index_for_replace(tagger.parse(text), random_mode)
+      index_for_replace = find_suitable_index_for_replace(tagger.parse(text), options)
 
       # Convert specific word only
       words = separate_words(text)
@@ -52,7 +52,7 @@ module YAZAWA
       left_space + "『" + katakana.romaji.upcase + "』"
     end
 
-    def find_suitable_index_for_replace(parsed_words, random_mode = false)
+    def find_suitable_index_for_replace(parsed_words, options = {})
       index_for_replace = 0
       max_score = 0
       
@@ -72,7 +72,7 @@ module YAZAWA
           # verb++
           (result.feature.split(',')[0] == "動詞" ? 8 : 0)
 
-        score += if random_mode
+        score += if options[:at_random]
           rand(20)
         else
           result.surface.length
