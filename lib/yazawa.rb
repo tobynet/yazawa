@@ -16,10 +16,10 @@ end
 module YAZAWA
   class << self
     # e.g. "空飛ぶ 寿司" => "空飛ぶ 『SUSHI』"
-    def convert(text)
+    def convert(text, random_mode = false)
       # e.g. "空飛ぶ 寿司" => "空飛ぶ 『SUSHI』"
       # Find a word index which is 'noun'(名詞) and longest length
-      index_for_replace = find_suitable_index_for_replace(tagger.parse(text))
+      index_for_replace = find_suitable_index_for_replace(tagger.parse(text), random_mode)
 
       # Convert specific word only
       words = separate_words(text)
@@ -52,13 +52,13 @@ module YAZAWA
       left_space + "『" + katakana.romaji.upcase + "』"
     end
 
-    def find_suitable_index_for_replace(parsed_words)
+    def find_suitable_index_for_replace(parsed_words, random_mode = false)
       index_for_replace = 0
       max_score = 0
       
       parsed_words.each_with_index do |result, index|
         # Calculate priority for determining a suitable word
-        score =
+        score = 
           # Japanese++
           (result.surface.contains_japanese? ? 100 : 0) +
           # Katakana++
@@ -68,9 +68,15 @@ module YAZAWA
           # adjective++
           (result.feature.split(',')[0] == "形容詞" ? 20 : 0) + 
           # noun++
-          (result.feature.split(',')[0] == "名詞" ? 10 : 0) + 
-          # (Long length)++
+          (result.feature.split(',')[0] == "名詞" ? 10 : 0) +
+          # verb++
+          (result.feature.split(',')[0] == "動詞" ? 8 : 0)
+
+        score += if random_mode
+          rand(20)
+        else
           result.surface.length
+        end
 
         if max_score < score
           max_score = score

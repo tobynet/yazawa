@@ -1,35 +1,54 @@
 #!/usr/bin/env ruby
 
+require 'optparse'
 require_relative '../lib/yazawa'
 
-program = File.basename($PROGRAM_NAME)
-USAGE = <<-EOD
-YAZAWA the text-converter
+config = {}
+opts = OptionParser.new do |opts|
+  program_name = File.basename($PROGRAM_NAME)
 
-Usage: #{program} TEXT
-
-Example:
-  $ #{program} '唸る回転寿司'
-  唸る『KAITEN』寿司
-
-  $ #{program} '便利を勘違いしていないか？'
-  便利を『KANCHIGAI』していないか？
-
-  $ #{program} '俺達の熱意で世界が変わる'
+  opts.banner = 'YAZAWA: One of text-converter like YAZAWA'
+  opts.define_head "Usage: #{program_name} TEXT"
+  opts.separator <<-EOD
+Examples:
+  $ #{program_name} '俺達の熱意で世界が変わる'
   俺達の『NETSUI』で世界が変わる
 
-  $ #{program} '意識の高いインターンが社内チャットで「世界を変えたいんです！！！」とか主張してたら社員が「ドラム缶で核融合するもの作ってどっかの国で爆発させましょうよ」とか言いだして意識格差すごい'
+  $ #{program_name} -r '俺達の熱意で世界が変わる'
+  俺達の熱意で『SEKAI』が変わる'
+
+  $ #{program_name} -r '俺達の熱意で世界が変わる'
+  俺達の熱意で世界が『KAWARU』
+
+  $ echo '唸る回転寿司' | #{program_name}
+  唸る『KAITEN』寿司
+
+  $ #{program_name} '便利を勘違いしていないか？'
+  便利を『KANCHIGAI』していないか？
+
+  $ #{program_name} '意識の高いインターンが社内チャットで「世界を変えたいんです！！！」とか主張してたら社員が「ドラム缶で核融合するもの作ってどっかの国で爆発させましょうよ」とか言いだして意識格差すごい'
   意識の高いインターンが社内チャットで「世界を変えたいんです！！！」とか主張してたら社員が「『DORAMUKAN』で核融合するもの作ってどっかの国で爆発させましょうよ」とか言いだして意識格差すごい
 
-EOD
+Options:
+  EOD
+
+  opts.on('-r', '--random', 'Random mode. Default: false') do
+    config[:random] = true
+  end
+  opts.on_tail('-h', '--help', 'Show this message') do
+    puts opts
+    exit
+  end
+  opts.parse!
+end
 
 # When no args on interactive shell
 if $stdin.tty? && ARGV.empty?
-  puts USAGE
-  exit 1
+  puts opts
+  exit 0
 end
 
 # Fetch source text
 source = ARGV.shift || ARGF.read
 
-puts YAZAWA.convert(source)
+puts YAZAWA.convert(source, config[:random])
