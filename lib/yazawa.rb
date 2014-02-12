@@ -1,5 +1,6 @@
-#require "yazawa/version"
+# -*- coding: utf-8 -*-
 
+require "yazawa/version"
 require 'mecab/light'
 require 'mojinizer'
 
