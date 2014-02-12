@@ -1,3 +1,3 @@
-module Yazawa
+module YAZAWA
   VERSION = "0.0.1"
 end

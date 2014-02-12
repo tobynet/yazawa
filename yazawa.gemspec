@@ -5,7 +5,7 @@ require 'yazawa/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "yazawa"
-  spec.version       = Yazawa::VERSION
+  spec.version       = YAZAWA::VERSION
   spec.authors       = ["toooooooby"]
   spec.email         = ["toby.net.info.mail+git@gmail.com"]
   spec.summary       = %q{TODO: Write a short summary. Required.}
@@ -18,6 +18,10 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
+  spec.add_dependency 'mecab-light', '~> 0.2'
+  spec.add_dependency 'mojinizer', '~> 0.2'
+
   spec.add_development_dependency "bundler", "~> 1.5"
   spec.add_development_dependency "rake"
+
 end

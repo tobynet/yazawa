@@ -1,3 +1,31 @@
 #!/usr/bin/env ruby
 
-require 'yazawa'
+require_relative '../lib/yazawa'
+
+program = File.basename($PROGRAM_NAME)
+USAGE = <<-EOD
+YAZAWA the text-converter
+
+Usage: #{program} TEXT
+
+Example:
+  $ #{program} '唸る回転寿司'
+  唸る『KAITEN』寿司
+
+  $ #{program} '意識の高いインターンが社内チャットで「世界を変えたいんです！！！」とか主張してたら社員が「ドラム缶で核融合するもの作ってどっかの国で爆発させましょうよ」とか言いだして意識格差すごい'
+  意識の高い『INTAAN』が社内『CHATTO』で「世界を変えたいんです！！！」とか主張してたら社員が「『DORAMUKAN』で核融合するもの作ってどっかの国で爆発させましょうよ」とか言いだして意識格差すごい
+
+  $ #{program} '便利を勘違いしていないか？'
+  便利を『KANCHIGAI』していないか？
+EOD
+
+# When no args on interactive shell
+if $stdin.tty? && ARGV.empty?
+  puts USAGE
+  exit 1
+end
+
+# Fetch source text
+source = ARGV.shift || ARGF.read
+
+puts YAZAWA.convert(source)
