@@ -3,7 +3,7 @@
 
 **『YAZAWA』** is one of `text-converter`, like [Yazawa](http://en.wikipedia.org/wiki/Eikichi_Yazawa).
 
-```
+```bash
 $ yazawa '俺達の熱意で世界が変わる'
 俺達の『NETSUI』で世界が変わる
 ```
