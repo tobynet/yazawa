@@ -61,11 +61,3 @@ require 'yazawa'
 p Yazawa.convert('俺達の熱意で世界が変わる') # => '俺達の『NETSUI』で世界が変わる'
 p Yazawa.convert('俺達の熱意で世界が変わる', at_random: true) # => '俺達の熱意で『SEKAI』が変わる'
 ```
-
-## Contributing
-
-1. Fork it ( http://github.com/toooooooby/yazawa/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
