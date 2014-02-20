@@ -1,6 +1,8 @@
 # YAZAWA
 [![Gem Version](https://badge.fury.io/rb/yazawa.png)](http://badge.fury.io/rb/yazawa) [![Build Status](https://travis-ci.org/toooooooby/yazawa.png?branch=master)](https://travis-ci.org/toooooooby/yazawa) [![Dependency Status](https://gemnasium.com/toooooooby/yazawa.png)](https://gemnasium.com/toooooooby/yazawa) [![Code Climate](https://codeclimate.com/github/toooooooby/yazawa.png)](https://codeclimate.com/github/toooooooby/yazawa) [![Coverage Status](https://coveralls.io/repos/toooooooby/yazawa/badge.png?branch=master)](https://coveralls.io/r/toooooooby/yazawa)
 
+![Screencast](https://raw.github.com/toooooooby/yazawa/attached/yazawa.gif?)
+
 **『YAZAWA』** is one of `text-converter`, like [Yazawa](http://en.wikipedia.org/wiki/Eikichi_Yazawa).
 
 ```bash
