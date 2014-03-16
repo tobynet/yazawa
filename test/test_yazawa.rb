@@ -8,6 +8,7 @@ require 'minitest/autorun'
 begin require 'minitest/pride' rescue LoadError end # Ignore error for old ruby
 
 require_relative '../lib/yazawa'
+require_relative '../lib/yazawa/ize'
 
 describe 'YAZAWA' do
   TEST_FIXTURES = [
@@ -48,6 +49,10 @@ describe 'YAZAWA' do
   TEST_FIXTURES.each do |text|
     it "can converts text to like Japanese yankee''s one(#{text[:original].slice(0..9)}...)" do
       YAZAWA.convert(text[:original]).must_equal text[:converted]
+    end
+
+    it "can converts text with String#to_yazawa(#{text[:original].slice(0..9)}...)" do
+      text[:original].to_yazawa.must_equal text[:converted]
     end
 
     it "can separate words in Japanese with spaces(#{text[:original].slice(0..9)}...)" do

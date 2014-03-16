@@ -62,4 +62,15 @@ require 'yazawa'
 
 p Yazawa.convert('俺達の熱意で世界が変わる') # => '俺達の『NETSUI』で世界が変わる'
 p Yazawa.convert('俺達の熱意で世界が変わる', at_random: true) # => '俺達の熱意で『SEKAI』が変わる'
+
 ```
+
+If you want to use String#to_yazawa:
+
+```ruby
+require 'yazawa/ize'
+
+p '俺達の熱意で世界が変わる'.to_yazawa # => '俺達の『NETSUI』で世界が変わる'
+p '俺達の熱意で世界が変わる'.to_yazawa(at_random: true) # => '俺達の熱意で『SEKAI』が変わる'
+```
+
